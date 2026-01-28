@@ -33,7 +33,7 @@ function App() {
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
-        <p>Next we're gonna try importing some dashboard UI/UX components.</p>
+        <p>Next we are gonna try importing some dashboard UI/UX components.</p>
       </div>
       <Journal />
       <h1 className="text-3xl font-bold underline">Hello world!</h1>
