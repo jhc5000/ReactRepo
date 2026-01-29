@@ -1,4 +1,28 @@
 export default function Journal() {
+  const headers = [
+    "Date",
+    "Ticker",
+    "Market Bias",
+    "Setup/Strategy",
+    "Option Type",
+    "Strike",
+    "Entry(size @ price)",
+    "Stop(Risk Mgmt ~0.5*)",
+    "Target(1.5R)",
+    "Outcome",
+    "Rule Adherence(%)",
+    "Entry Quality(fit setup?)",
+    "Emotional State",
+    "Why this trade?",
+    "Chart Screenshot",
+  ];
+  const listHeaders = headers.map((header) => {
+    return (
+      <th scope="col" className="px-6 py-4">
+        {header}
+      </th>
+    );
+  });
   return (
     <div id="Journal" className="place-items-center">
       <h1>DayTrading Journal</h1>
@@ -15,20 +39,7 @@ export default function Journal() {
         <table className="min-w-full text-left text-sm whitespace-nowrap">
           {/* <!-- Table head --> */}
           <thead className="uppercase tracking-wider border-b-2 dark:border-neutral-600">
-            <tr>
-              <th scope="col" className="px-6 py-4">
-                Product
-              </th>
-              <th scope="col" className="px-6 py-4">
-                Price
-              </th>
-              <th scope="col" className="px-6 py-4">
-                Stock
-              </th>
-              <th scope="col" className="px-6 py-4">
-                Status
-              </th>
-            </tr>
+            <tr>{listHeaders}</tr>
           </thead>
 
           {/* <!-- Table body --> */}
