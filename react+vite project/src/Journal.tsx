@@ -1,12 +1,12 @@
 export default function Journal() {
   const headers = [
     "Date",
-    "Ticker",
+    "Symbol",
     "Market Bias",
     "Setup/Strategy",
     "Option Type",
     "Strike",
-    "Entry(size @ price)",
+    "Entry(size@price)",
     "Stop(Risk Mgmt ~0.5*)",
     "Target(1.5R)",
     "Outcome",
