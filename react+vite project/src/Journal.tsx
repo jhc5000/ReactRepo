@@ -6,7 +6,7 @@ export default function Journal() {
     "Setup/Strategy",
     "Option Type",
     "Strike",
-    "Entry(size @ price)",
+    "Entry(size@price)",
     "Stop(Risk Mgmt ~0.5*)",
     "Target(1.5R)",
     "Outcome",
