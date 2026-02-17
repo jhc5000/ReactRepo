@@ -1,7 +1,7 @@
 import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
-import "./App.css";
+import "./App.scss";
 import Journal from "./Journal.tsx";
 
 function App() {
@@ -26,24 +26,17 @@ function App() {
         </div>
       </div>
       <h1>JOHN'S Vite + React PROJECT</h1>
-      <div className="card">
+      {/* <div className="card">
         <button onClick={() => setCount((count) => (count + 1) * 2)}>
           count is {count}
         </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-        <p>Next we are gonna try importing some dashboard UI/UX components.</p>
-      </div>
+      
+      </div> */}
       <Journal />
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>
       <p className="text-center bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
         Built with React & Tailwind CSS
       </p>
 
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   );
 }

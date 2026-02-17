@@ -28,15 +28,15 @@ export default function Journal() {
       <h1>DayTrading Journal</h1>
       <div>
         <img
-          className="rounded-lg rounded-md rounded-sm rounded-xl"
+          className="mt-5 rounded-lg rounded-md rounded-sm rounded-xl"
           src="https://i.imgur.com/jA8hHMpm.jpg"
           alt="Katsuko Saruhashi"
         />
       </div>
       {/* <!-- Table responsive wrapper --> */}
-      <div className="mt-15 overflow-x-auto bg-white dark:bg-neutral-700 rounded-lg rounded-md rounded-sm rounded-xl">
+      <div className=" table-wrapper mt-15 overflow-x-auto bg-white dark:bg-neutral-700 rounded-lg rounded-md rounded-sm rounded-xl">
         {/* <!-- Table --> */}
-        <table className="min-w-full text-left text-sm whitespace-nowrap">
+        <table className="editor_listing_table text-left text-sm whitespace-nowrap">
           {/* <!-- Table head --> */}
           <thead className="uppercase tracking-wider border-b-2 dark:border-neutral-600">
             <tr>{listHeaders}</tr>
@@ -46,7 +46,7 @@ export default function Journal() {
           <tbody>
             <tr className="border-b dark:border-neutral-600">
               <th scope="row" className="px-6 py-4">
-                Handbag
+                January
               </th>
               <td className="px-6 py-4">$129.99</td>
               <td className="px-6 py-4">30</td>
@@ -55,7 +55,7 @@ export default function Journal() {
 
             <tr className="border-b dark:border-neutral-600">
               <th scope="row" className="px-6 py-4">
-                Shoes
+                February
               </th>
               <td className="px-6 py-4">$89.50</td>
               <td className="px-6 py-4">25</td>
@@ -64,7 +64,7 @@ export default function Journal() {
 
             <tr className="border-b dark:border-neutral-600">
               <th scope="row" className="px-6 py-4">
-                Bedding Set
+                March
               </th>
               <td className="px-6 py-4">$69.99</td>
               <td className="px-6 py-4">40</td>
@@ -73,7 +73,7 @@ export default function Journal() {
 
             <tr className="border-b dark:border-neutral-600">
               <th scope="row" className="px-6 py-4">
-                Dining Table
+                April
               </th>
               <td className="px-6 py-4">$449.99</td>
               <td className="px-6 py-4">5</td>
@@ -82,7 +82,7 @@ export default function Journal() {
 
             <tr className="border-b dark:border-neutral-600">
               <th scope="row" className="px-6 py-4">
-                Soap Set
+                May
               </th>
               <td className="px-6 py-4">$24.95</td>
               <td className="px-6 py-4">50</td>
