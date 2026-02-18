@@ -38,7 +38,7 @@ export default function Journal() {
         {/* <!-- Table --> */}
         <table className="editor_listing_table text-left text-sm whitespace-nowrap">
           {/* <!-- Table head --> */}
-          <thead className="uppercase tracking-wider border-b-2 dark:border-neutral-600">
+          <thead className="t-header uppercase tracking-wider border-b-2 dark:border-neutral-600">
             <tr>{listHeaders}</tr>
           </thead>
 
