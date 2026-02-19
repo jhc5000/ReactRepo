@@ -26,6 +26,7 @@ export default function Journal() {
   return (
     <div id="Journal" className="place-items-center">
       <h1>DayTrading Journal</h1>
+
       <div>
         <img
           className="mt-5 rounded-lg rounded-md rounded-sm rounded-xl"
@@ -33,6 +34,19 @@ export default function Journal() {
           alt="Katsuko Saruhashi"
         />
       </div>
+      <div
+        className="ezraAI-wrapper mt-15 bg-white dark:bg-neutral-700 rounded-lg rounded-md rounded-sm rounded-xl"
+        style={{ width: "30vw", height: "30vh", backgroundColor: "lightcoral" }}
+      >
+        <h1>EZRA.AI</h1>
+        <div
+          className="ezraAI-content mt-5 rounded-lg rounded-md rounded-sm rounded-xl"
+          // style={{ backgroundColor: "lightcoral" }}
+        >
+          <p>placeholder</p>
+        </div>
+      </div>
+
       {/* <!-- Table responsive wrapper --> */}
       <div className=" table-wrapper mt-15 overflow-x-auto bg-white dark:bg-neutral-700 rounded-lg rounded-md rounded-sm rounded-xl">
         {/* <!-- Table --> */}
