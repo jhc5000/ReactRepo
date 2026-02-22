@@ -27,7 +27,7 @@ export default function Journal() {
   });
   return (
     <div id="Journal" className="place-items-center">
-      <h1>DayTrading Journal</h1>
+      <h1>DayTrading Journal w/ EzraAI</h1>
 
       <div>
         <img

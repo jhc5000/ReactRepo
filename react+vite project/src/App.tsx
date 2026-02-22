@@ -25,7 +25,6 @@ function App() {
           </a>
         </div>
       </div>
-      <h1>JOHN'S Vite + React PROJECT</h1>
       {/* <div className="card">
         <button onClick={() => setCount((count) => (count + 1) * 2)}>
           count is {count}
@@ -36,7 +35,6 @@ function App() {
       <p className="text-center bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
         Built with React & Tailwind CSS
       </p>
-
     </>
   );
 }
