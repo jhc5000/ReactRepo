@@ -1,4 +1,10 @@
 import EzraAI from "./EzraAI";
+import React, { useState, useEffect } from "react";
+import type {
+  TradingJournalApiService,
+  TradingJournalEntry,
+} from "../api/apiService/TradingJournal/TradingJournal-Api-Definitions";
+import TradingJournalApiServiceImplementation from "../api/apiService/TradingJournal/TradingJournal-Api-Service";
 
 export default function Journal() {
   const headers = [
@@ -25,6 +31,26 @@ export default function Journal() {
       </th>
     );
   });
+
+  //API CALL
+  const [tradingJournalentries, setTradingJournalEntries] = useState<
+    TradingJournalEntry[]
+  >([]);
+  useEffect(() => {
+    const fetchTradingJournalEntries = async () => {
+      try {
+        const tradingJournalService: TradingJournalApiServiceImplementation =
+          new TradingJournalApiServiceImplementation();
+        const fetchedTradingJournalEntries =
+          await tradingJournalService.fetchAllTradingJournalEntries();
+        setTradingJournalEntries(fetchedTradingJournalEntries);
+      } catch (error) {
+        console.error("Error fetching todos:", error);
+      }
+    };
+    fetchTradingJournalEntries();
+  }, []);
+
   return (
     <div id="Journal" className="place-items-center">
       <h1>DayTrading Journal w/ EzraAI</h1>
