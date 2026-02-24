@@ -32,8 +32,20 @@ export default function Journal() {
     );
   });
 
+  const journalEntry=(entryObj:TradingJournalEntry[])=>{
+              entryObj.map(entry => 
+                let vals=Object.values(entry);
+                let keys=Object.keys(entry);
+                return(
+                    keys.map((prop:any,i)=>{
+                        <p>{prop}:{vals[i]}</p>
+                      })
+                    ))
+    } 
+
+
   //API CALL
-  const [tradingJournalentries, setTradingJournalEntries] = useState<
+  const [tradingJournalEntries, setTradingJournalEntries] = useState<
     TradingJournalEntry[]
   >([]);
   useEffect(() => {
@@ -121,6 +133,11 @@ export default function Journal() {
             </tr>
           </tbody>
         </table>
+
+        <div>
+           {journalEntry(tradingJournalEntries)}
+          
+        </div>
       </div>
     </div>
   );
