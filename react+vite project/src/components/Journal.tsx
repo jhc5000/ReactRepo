@@ -11,17 +11,17 @@ export default function Journal() {
     "Date",
     "Symbol",
     "Market Bias",
-    "Setup/Strategy",
+    "Setup Strategy",
     "Option Type",
     "Strike",
-    "Entry(size@price)",
-    "Stop(Risk Mgmt ~0.5*)",
-    "Target(1.5R)",
+    "Entry", //(size@price)
+    "Stop", //(Risk Mgmt ~0.5*)
+    "Target", //(1.5R)
     "Outcome",
-    "Rule Adherence(%)",
-    "Entry Quality(fit setup?)",
+    "Rule Adherence",
+    "Entry", //Quality(fit setup?)
     "Emotional State",
-    "Why this trade?",
+    "Why this trade",
     "Chart Screenshot",
   ];
   const listHeaders = headers.map((header) => {
@@ -32,8 +32,20 @@ export default function Journal() {
     );
   });
 
+  const journalEntry=(entryObj:TradingJournalEntry[])=>{
+              entryObj.map(entry => 
+                let vals=Object.values(entry);
+                let keys=Object.keys(entry);
+                return(
+                    keys.map((prop:any,i)=>{
+                        <p>{prop}:{vals[i]}</p>
+                      })
+                    ))
+    } 
+
+
   //API CALL
-  const [tradingJournalentries, setTradingJournalEntries] = useState<
+  const [tradingJournalEntries, setTradingJournalEntries] = useState<
     TradingJournalEntry[]
   >([]);
   useEffect(() => {
@@ -121,6 +133,11 @@ export default function Journal() {
             </tr>
           </tbody>
         </table>
+
+        <div>
+           {journalEntry(tradingJournalEntries)}
+          
+        </div>
       </div>
     </div>
   );
