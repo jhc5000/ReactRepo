@@ -57,7 +57,7 @@ export default function Journal() {
           await tradingJournalService.fetchAllTradingJournalEntries();
         setTradingJournalEntries(fetchedTradingJournalEntries);
       } catch (error) {
-        console.error("Error fetching todos:", error);
+        console.error("Error fetching trading journal entries:", error);
       }
     };
     fetchTradingJournalEntries();
