@@ -5,6 +5,7 @@ import type {
   TradingJournalEntry,
 } from "../api/apiService/TradingJournal/TradingJournal-Api-Definitions";
 import TradingJournalApiServiceImplementation from "../api/apiService/TradingJournal/TradingJournal-Api-Service";
+import type { JSX } from "react/jsx-runtime";
 
 export default function Journal() {
   const headers = [
@@ -31,18 +32,24 @@ export default function Journal() {
       </th>
     );
   });
+  //YOU NEED TO CHANGe THE INTERFACE KEYS TO MATCH THE ONES IN PYTHON.
+  // THEN CREATE FUNCS TO PASS THE PROPS INTO THE HEADER ELEM AND THE VALUES INTO THE NEXT ROW
+  const journalEntry = (entryObj: TradingJournalEntry[]) => {
+    let final: JSX.Element[] = [];
+    entryObj.map((entry) => {
+      let vals = Object.values(entry);
+      let keys = Object.keys(entry);
 
-  const journalEntry=(entryObj:TradingJournalEntry[])=>{
-              entryObj.map(entry => 
-                let vals=Object.values(entry);
-                let keys=Object.keys(entry);
-                return(
-                    keys.map((prop:any,i)=>{
-                        <p>{prop}:{vals[i]}</p>
-                      })
-                    ))
-    } 
-
+      final = keys.map((prop: any, i) => {
+        return (
+          <p>
+            {prop}:{vals[i]}
+          </p>
+        );
+      });
+    });
+    return final;
+  };
 
   //API CALL
   const [tradingJournalEntries, setTradingJournalEntries] = useState<
@@ -134,10 +141,7 @@ export default function Journal() {
           </tbody>
         </table>
 
-        <div>
-           {journalEntry(tradingJournalEntries)}
-          
-        </div>
+        <div>{journalEntry(tradingJournalEntries)}</div>
       </div>
     </div>
   );
