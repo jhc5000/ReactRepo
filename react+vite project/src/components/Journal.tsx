@@ -8,63 +8,33 @@ import TradingJournalApiServiceImplementation from "../api/apiService/TradingJou
 import type { JSX } from "react/jsx-runtime";
 
 export default function Journal() {
-  const headers = [
-    "Date",
-    "Symbol",
-    "Market Bias",
-    "Setup Strategy",
-    "Option Type",
-    "Strike",
-    "Entry", //(size@price)
-    "Stop", //(Risk Mgmt ~0.5*)
-    "Target", //(1.5R)
-    "Outcome",
-    "Rule Adherence",
-    "Entry", //Quality(fit setup?)
-    "Emotional State",
-    "Why this trade",
-    "Chart Screenshot",
-  ];
-  const listHeaders2 = (entryObj: TradingJournalEntry) => {
+  const listHeaders = (entryObj: TradingJournalEntry) => {
     let elem: JSX.Element[] = [];
     let props = Object.keys(entryObj);
     console.dir(entryObj);
     console.log("jeaders", props);
     elem = props.map((entry, i) => {
       return (
-        <th scope="col" className="px-6 py-4">
+        <th scope="col" className="px-6 py-4 text-center">
           {entry}
         </th>
       );
     });
     return elem;
   };
-  // const listHeaders = headers.map((header) => {
-  //   return (
-  //     <th scope="col" className="px-6 py-4">
-  //       {header}
-  //     </th>
-  //   );
-  // });
 
-  const listRows = (entryObj: TradingJournalEntry[]) => {
-    // you got the headers setup, now setup the rows
-  };
-  const journalEntry = (entryObj: TradingJournalEntry[]) => {
-    let final: JSX.Element[] = [];
-    entryObj.map((entry) => {
-      let vals = Object.values(entry);
-      let keys = Object.keys(entry);
-
-      final = keys.map((prop: any, i) => {
-        return (
-          <p>
-            {prop}:{vals[i]}
-          </p>
-        );
+  const listRows = (entryObjects: TradingJournalEntry[]) => {
+    let rows: JSX.Element[][] = [];
+    entryObjects.map((entry, i) => {
+      let values = Object.values(entry);
+      let singleRow = values.map((val, i) => {
+        return <td className="px-6 py-4 text-center">{val}</td>;
       });
+      rows = [...rows, singleRow];
     });
-    return final;
+    return rows.map((row) => {
+      return <tr className="border-b dark:border-neutral-600">{row}</tr>;
+    });
   };
 
   //API CALL
@@ -109,61 +79,12 @@ export default function Journal() {
             <thead className="t-header uppercase tracking-wider border-b-2 dark:border-neutral-600">
               {/* { <tr>{listHeaders}</tr>} */}
 
-              <tr>{listHeaders2(tradingJournalEntries[0])}</tr>
+              <tr>{listHeaders(tradingJournalEntries[0])}</tr>
             </thead>
 
             {/* <!-- Table body --> */}
-            <tbody>
-              <tr className="border-b dark:border-neutral-600">
-                <th scope="row" className="px-6 py-4">
-                  January
-                </th>
-                <td className="px-6 py-4">$129.99</td>
-                <td className="px-6 py-4">30</td>
-                <td className="px-6 py-4">In Stock</td>
-              </tr>
-
-              <tr className="border-b dark:border-neutral-600">
-                <th scope="row" className="px-6 py-4">
-                  February
-                </th>
-                <td className="px-6 py-4">$89.50</td>
-                <td className="px-6 py-4">25</td>
-                <td className="px-6 py-4">In Stock</td>
-              </tr>
-
-              <tr className="border-b dark:border-neutral-600">
-                <th scope="row" className="px-6 py-4">
-                  March
-                </th>
-                <td className="px-6 py-4">$69.99</td>
-                <td className="px-6 py-4">40</td>
-                <td className="px-6 py-4">In Stock</td>
-              </tr>
-
-              <tr className="border-b dark:border-neutral-600">
-                <th scope="row" className="px-6 py-4">
-                  April
-                </th>
-                <td className="px-6 py-4">$449.99</td>
-                <td className="px-6 py-4">5</td>
-                <td className="px-6 py-4">In Stock</td>
-              </tr>
-
-              <tr className="border-b dark:border-neutral-600">
-                <th scope="row" className="px-6 py-4">
-                  May
-                </th>
-                <td className="px-6 py-4">$24.95</td>
-                <td className="px-6 py-4">50</td>
-                <td className="px-6 py-4">In Stock</td>
-              </tr>
-            </tbody>
+            <tbody>{listRows(tradingJournalEntries)}</tbody>
           </table>
-
-          {tradingJournalEntries && (
-            <div>{journalEntry(tradingJournalEntries)}</div>
-          )}
         </div>
       </div>
     )
