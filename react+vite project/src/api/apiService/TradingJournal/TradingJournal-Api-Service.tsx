@@ -6,6 +6,7 @@ import type {
 class TradingJournalApiServiceImplementation
   implements TradingJournalApiService
 {
+  //START HERE TO CREATE SERVICE FOR POST CALLS
   async fetchAllTradingJournalEntries(): Promise<TradingJournalEntry[]> {
     try {
       const response = await fetch(
