@@ -9,16 +9,17 @@ class TradingJournalApiServiceImplementation
   async fetchAllTradingJournalEntries(): Promise<TradingJournalEntry[]> {
     try {
       const response = await fetch(
-        "https://4trcq7-8000.csb.app/api/tradingjournalentries/"
+        "http://127.0.0.1:8000/api/tradingjournalentries/"
+      //  "https://jubilant-pancake-g55j65qp4pjcw796-8000.app.github.dev/api/tradingjournalentries/"
       );
       if (!response.ok) {
-        throw new Error("Failed to fetch todos");
+        throw new Error("Failed to fetch trading journal entries");
       }
       const data = await response.json();
       console.log("test:", data);
       return this.fixJournalEntries(data);
     } catch (error) {
-      console.error("Error fetching todos:", error);
+      console.error("Error fetching trading journal entries:", error);
       return [];
     }
   }
