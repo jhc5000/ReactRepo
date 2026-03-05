@@ -33,7 +33,7 @@ function App() {
       </div> */}
       <Journal />
       <p className="text-center bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-        Built with React & Tailwind CSS
+        Built with React, Tailwind CSS, Python & Go
       </p>
       
     </>

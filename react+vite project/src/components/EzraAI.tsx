@@ -65,9 +65,7 @@ const [latestMsg, setLatestMsg] = useState("");
           >
             <input
             className=" ezra-chat-input rounded-lg rounded-md rounded-sm rounded-xl"
-            style={{textAlign:"center",
-              width:"77vw",
-              padding:"3px", marginBottom:"3px", border:"1px solid black"}}
+            
               type="text"
               name="message"
               placeholder="chat with Ezra"
