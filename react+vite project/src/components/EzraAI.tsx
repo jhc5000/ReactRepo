@@ -26,7 +26,7 @@ const [latestMsg, setLatestMsg] = useState("");
       }
     };
     console.log("sending message:",{message})
-    fetch("http://127.0.0.1:8080/chat", {
+    fetch("https://congenial-memory-jq4w79grw73554r-8080.app.github.dev/chat", {
       method: "POST",
       headers: {
         "Content-Type": "Application/JSON",
@@ -49,7 +49,7 @@ const [latestMsg, setLatestMsg] = useState("");
     <div id="EzraAI" className="place-items-center">
       <div
         className="ezraAI-wrapper mt-15 bg-white dark:bg-neutral-700 rounded-lg rounded-md rounded-sm rounded-xl"
-        style={{ width: "84vw", height: "55vh", backgroundColor: "lightcoral" }}
+        
       >
         <h1>EZRA.AI</h1>
         <div
@@ -64,7 +64,7 @@ const [latestMsg, setLatestMsg] = useState("");
             style={{paddingTop:"10px"}}
           >
             <input
-            className="rounded-lg rounded-md rounded-sm rounded-xl"
+            className=" ezra-chat-input rounded-lg rounded-md rounded-sm rounded-xl"
             style={{textAlign:"center",
               width:"77vw",
               padding:"3px", marginBottom:"3px", border:"1px solid black"}}

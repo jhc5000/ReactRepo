@@ -57,8 +57,7 @@ export default function Journal() {
   }, []);
 
   return (
-    tradingJournalEntries &&
-    tradingJournalEntries[0] && (
+   
       <div id="Journal" className="place-items-center">
         <h1>DayTrading Journal w/ EzraAI</h1>
 
@@ -71,22 +70,21 @@ export default function Journal() {
         </div>
         {/* EzraAI component */}
         <EzraAI />
-        {/* <!-- Table responsive wrapper --> */}
+        {tradingJournalEntries &&
+    tradingJournalEntries[0] && ( 
         <div className=" table-wrapper mt-15 overflow-x-auto bg-white dark:bg-neutral-700 rounded-lg rounded-md rounded-sm rounded-xl">
-          {/* <!-- Table --> */}
           <table className="editor_listing_table text-left text-sm whitespace-nowrap">
-            {/* <!-- Table head --> */}
             <thead className="t-header uppercase tracking-wider border-b-2 dark:border-neutral-600">
-              {/* { <tr>{listHeaders}</tr>} */}
+           
 
               <tr>{listHeaders(tradingJournalEntries[0])}</tr>
             </thead>
 
-            {/* <!-- Table body --> */}
             <tbody>{listRows(tradingJournalEntries)}</tbody>
           </table>
-        </div>
+        </div>) }
+        
       </div>
     )
-  );
+  
 }
