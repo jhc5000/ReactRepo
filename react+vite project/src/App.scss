@@ -49,7 +49,7 @@ Retrieved 2026-02-16, License - CC BY-SA 4.0
 */
 
 .table-wrapper{
-  width:76vw; 
+  width:84vw; 
   height:67vh;
 }
 .t-header{
@@ -62,3 +62,17 @@ table,  td {
 }
 
 //test for ezra
+.ezraAI-wrapper{
+   width: 84vw;
+   height: 55vh;
+   background-color: lightcoral
+}
+@media screen and (min-width:584px) {
+  .ezraAI-wrapper{
+    width:500px;
+  }
+  .ezra-chat-input{
+    width:411px
+  }
+
+}

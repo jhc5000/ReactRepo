@@ -9,8 +9,7 @@ class TradingJournalApiServiceImplementation
   async fetchAllTradingJournalEntries(): Promise<TradingJournalEntry[]> {
     try {
       const response = await fetch(
-        "http://127.0.0.1:8000/api/tradingjournalentries/"
-      //  "https://jubilant-pancake-g55j65qp4pjcw796-8000.app.github.dev/api/tradingjournalentries/"
+        "https://jubilant-pancake-g55j65qp4pjcw796-8000.app.github.dev/api/tradingjournalentries/"
       );
       if (!response.ok) {
         throw new Error("Failed to fetch trading journal entries");
