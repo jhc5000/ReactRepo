@@ -67,6 +67,13 @@ table,  td {
    height: 55vh;
    background-color: lightcoral
 }
+.ezra-chat-input{
+  text-align:center;
+  width:77vw;
+  padding:3px; 
+  margin-bottom:3px; 
+  border:1px solid black;
+}
 @media screen and (min-width:584px) {
   .ezraAI-wrapper{
     width:500px;
