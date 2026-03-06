@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useState, type JSX } from "react";
 
   
 
   // const navigate = useNavigate();
 export default function EzraAI() {
 const [latestMsg, setLatestMsg] = useState("");
-  const [latestResp,setLatestResp]=useState("")
+  const [latestResp,setLatestResp]=useState<
+      JSX.Element[]
+    >()
 
  const handleSubmit = (event:any) => {
     event.preventDefault();
@@ -26,6 +28,16 @@ const [latestMsg, setLatestMsg] = useState("");
       }
     };
     console.log("sending message:",{message})
+    const latestRespBlock=(resp:string)=>{
+      let processedResp=resp.split("\n");
+      return(
+        processedResp.map(par=>{
+          return(
+            <p style={{marginBottom:"20px"}}>{par}</p>
+          )
+        })
+      )
+    }
     fetch("https://congenial-memory-jq4w79grw73554r-8080.app.github.dev/chat", {
       method: "POST",
       headers: {
@@ -36,8 +48,9 @@ const [latestMsg, setLatestMsg] = useState("");
       .then((respose) => respose.json())
       .then((newResp) => {
         console.log("api response:",{newResp})
-        setLatestResp(newResp?.reply);
+        setLatestResp(latestRespBlock(newResp?.reply));
         setLatestMsg("")
+        
         // navigate("/Reviews");
       })
       .catch((error) => {
@@ -58,7 +71,7 @@ const [latestMsg, setLatestMsg] = useState("");
         >
           <div
           style={{height:"25vh",fontWeight:"700",overflow:"overlay",scrollbarWidth:"none"}}
-          ><p>{latestResp|| "hi, how can I help you?"}</p></div>
+          >{latestResp||<p>Hey John, How are you doing?</p>}</div>
           <form
             onSubmit={handleSubmit}
             style={{paddingTop:"10px"}}
