@@ -8,6 +8,8 @@ import TradingJournalApiServiceImplementation from "../api/apiService/TradingJou
 import type { JSX } from "react/jsx-runtime";
 
 export default function Journal() {
+  const[submittedJournalEntry,setSubmittedJournalEntry]=useState({})
+ 
   const listHeaders = (entryObj: TradingJournalEntry) => {
     let elem: JSX.Element[] = [];
     let props = Object.keys(entryObj);
@@ -21,6 +23,25 @@ export default function Journal() {
       );
     });
     return elem;
+  };
+const listReturnedJournalEntry = () => {
+  let newEntry:JSX.Element[] = [];
+  if(!!(Object.keys(submittedJournalEntry)[0])){
+    let props = Object.keys(submittedJournalEntry);
+    let vals = Object.values(submittedJournalEntry) as string[];
+    console.dir(props);
+    console.log("new obj keys", props);
+    newEntry = props.map((name, i) => {
+      return (
+        <div>
+            {name} - {vals[i]}
+        </div>
+      );
+    });
+  }
+   
+    
+    return newEntry
   };
 
   const listRows = (entryObjects: TradingJournalEntry[]) => {
@@ -54,6 +75,46 @@ export default function Journal() {
       }
     };
     fetchTradingJournalEntries();
+    
+    // Create new journal entry
+    const submitNewTradingJournalEntry=async()=>{
+
+       fetch("https://jubilant-pancake-g55j65qp4pjcw796-8000.app.github.dev/api/tradingjournalentries/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "Application/JSON",
+      },
+      body: JSON.stringify({
+    "Date": "2026-03-08",
+    "Symbol": "NTFLX",
+    "Market_Bias": "Looking good",
+    "Setup_Strategy": "breakout 15 minute strategy",
+    "Option_Type": "Test",
+    "Strike": "600",
+    "Entry": "2.50",
+    "Stop": "2.40",
+    "Target": "3.00",
+    "Outcome": "3.50",
+    "Rule_Adherence": "50",
+    "Entry_Quality": 45,
+    "Emotional_State": "content",
+    "Why_this_trade": "good strategy adherncr",
+    "Chart_Screenshot": "image url"
+}),
+    })
+      .then((respose) => respose.json())
+      .then((newEntryResp) => {
+        console.log("post api response:",newEntryResp)
+        setSubmittedJournalEntry(newEntryResp)
+        
+        // navigate("/Reviews");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    }
+    submitNewTradingJournalEntry();
+   
   }, []);
 
   return (
@@ -82,6 +143,19 @@ export default function Journal() {
 
             <tbody>{listRows(tradingJournalEntries)}</tbody>
           </table>
+            {listReturnedJournalEntry()}
+
+            {/* {Object.keys(submittedJournalEntry[0])&&submittedJournalEntry.map(entry=>{
+              console.log(submittedJournalEntry)
+              let newDiv=Object.keys(entry).map((key,i)=>{
+                let vals:string[]=Object.values(entry)
+                return(<p>{key}:{vals[i]}</p>)
+              })
+              return(
+                <div>{newDiv}</div>
+              )
+            })} */}
+          
         </div>) }
         
       </div>
