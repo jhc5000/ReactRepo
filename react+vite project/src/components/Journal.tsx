@@ -9,6 +9,7 @@ import type { JSX } from "react/jsx-runtime";
 
 export default function Journal() {
   const[submittedJournalEntry,setSubmittedJournalEntry]=useState({})
+  const [refreshTrig,setRefreshTrig]=useState("")
  
   const listHeaders = (entryObj: TradingJournalEntry) => {
     let elem: JSX.Element[] = [];
@@ -75,9 +76,12 @@ const listReturnedJournalEntry = () => {
       }
     };
     fetchTradingJournalEntries();
-    
-    // Create new journal entry
-    const submitNewTradingJournalEntry=async()=>{
+  
+  }, [refreshTrig]);
+  
+  // API post call
+  // Create new journal entry
+  const submitNewTradingJournalEntry=()=>{
 
        fetch("https://jubilant-pancake-g55j65qp4pjcw796-8000.app.github.dev/api/tradingjournalentries/", {
       method: "POST",
@@ -106,16 +110,12 @@ const listReturnedJournalEntry = () => {
       .then((newEntryResp) => {
         console.log("post api response:",newEntryResp)
         setSubmittedJournalEntry(newEntryResp)
-        
-        // navigate("/Reviews");
+        setRefreshTrig(prev=>prev+1)
       })
       .catch((error) => {
         console.log(error);
       });
     }
-    submitNewTradingJournalEntry();
-   
-  }, []);
 
   return (
    
@@ -143,19 +143,9 @@ const listReturnedJournalEntry = () => {
 
             <tbody>{listRows(tradingJournalEntries)}</tbody>
           </table>
-            {listReturnedJournalEntry()}
 
-            {/* {Object.keys(submittedJournalEntry[0])&&submittedJournalEntry.map(entry=>{
-              console.log(submittedJournalEntry)
-              let newDiv=Object.keys(entry).map((key,i)=>{
-                let vals:string[]=Object.values(entry)
-                return(<p>{key}:{vals[i]}</p>)
-              })
-              return(
-                <div>{newDiv}</div>
-              )
-            })} */}
-          
+            <button onClick={()=>submitNewTradingJournalEntry()}>create new entry</button>
+            {listReturnedJournalEntry()}          
         </div>) }
         
       </div>
