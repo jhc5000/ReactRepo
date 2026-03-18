@@ -10,6 +10,7 @@ import type { JSX } from "react/jsx-runtime";
 export default function Journal() {
   const[submittedJournalEntry,setSubmittedJournalEntry]=useState({})
   const [refreshTrig,setRefreshTrig]=useState("")
+  const [shouldCreateNewEntry,setshouldCreateNewEntry]=useState(false)
  
   const listHeaders = (entryObj: TradingJournalEntry) => {
     let elem: JSX.Element[] = [];
@@ -131,6 +132,32 @@ const listReturnedJournalEntry = () => {
         </div>
         {/* EzraAI component */}
         <EzraAI />
+
+        {/* THIS IS THE FORM FOR CREATING NEW ENTRIES */}
+        <div>
+          <button onClick={()=>setshouldCreateNewEntry(prev=>!prev)}>New Entry</button>
+          {shouldCreateNewEntry && (<div> 
+            <form
+              onSubmit={handleSubmit}
+              style={{paddingTop:"10px"}}
+            >
+              <input
+              className=" ezra-chat-input rounded-lg rounded-md rounded-sm rounded-xl"
+              
+                type="text"
+                name="message"
+                placeholder="chat with Ezra"
+                value={latestMsg}
+                onChange={(event) => setLatestMsg(event.target.value)}
+              />
+              <div>
+                <button >
+                Submit
+              </button>
+              </div>
+            </form>
+          </div>)}
+        </div>
         {tradingJournalEntries &&
     tradingJournalEntries[0] && ( 
         <div className=" table-wrapper mt-15 overflow-x-auto bg-white dark:bg-neutral-700 rounded-lg rounded-md rounded-sm rounded-xl">
