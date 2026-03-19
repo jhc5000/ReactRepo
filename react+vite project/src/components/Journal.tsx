@@ -59,6 +59,24 @@ const listReturnedJournalEntry = () => {
       return <tr className="border-b dark:border-neutral-600">{row}</tr>;
     });
   };
+  const createNewEntryForm=()=>{
+    const entryObjsArr=[
+    {"Symbol": (val:any)=>setRefreshTrig(val)},
+    "Market_Bias": "Looking good",
+    "Setup_Strategy": "breakout 15 minute strategy",
+    "Option_Type": "Test",
+    "Strike": "600",
+    "Entry": "2.50",
+    "Stop": "2.40",
+    "Target": "3.00",
+    "Outcome": "3.50",
+    "Rule_Adherence": "50",
+    "Entry_Quality": 45,
+    "Emotional_State": "content",
+    "Why_this_trade": "good strategy adherncr",
+    "Chart_Screenshot": "image url"
+    ]
+  }
 
   //API CALL
   const [tradingJournalEntries, setTradingJournalEntries] = useState<
