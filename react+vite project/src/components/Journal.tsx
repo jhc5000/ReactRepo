@@ -11,6 +11,20 @@ export default function Journal() {
   const[submittedJournalEntry,setSubmittedJournalEntry]=useState({})
   const [refreshTrig,setRefreshTrig]=useState("")
   const [shouldCreateNewEntry,setshouldCreateNewEntry]=useState(false)
+  const[symbol,setSymbol]=useState("")
+  const [marketBias,setMarketBias]=useState("")
+  const [setupStrategy,setSetupStrategy]=useState("")
+  const [optionType,setOptionType]=useState("")
+  const [stop, setStop]=useState("")
+  const [entry,setEntry]=useState("")
+  const [strike,setStrike]=useState("")
+  const [outcome,setOutcome]=useState("")
+  const [target,setTarget]=useState("")
+  const[ruleAdherence,setRuleAdherence]=useState("")
+  const[entryQuality,setEntryQuality]=useState("")
+  const [emotionalState,setEmotionalState]=useState("")
+  const [whyThisTrade,setWhyThisTrade]=useState("")
+  const[chartSceenshot,setChartScreenshot]=useState("")
  
   const listHeaders = (entryObj: TradingJournalEntry) => {
     let elem: JSX.Element[] = [];
@@ -59,23 +73,36 @@ const listReturnedJournalEntry = () => {
       return <tr className="border-b dark:border-neutral-600">{row}</tr>;
     });
   };
+  // CREATE NEW ENTRY CONTAINER
   const createNewEntryForm=()=>{
     const entryObjsArr=[
-    {"Symbol": (val:any)=>setRefreshTrig(val)},
-    "Market_Bias": "Looking good",
-    "Setup_Strategy": "breakout 15 minute strategy",
-    "Option_Type": "Test",
-    "Strike": "600",
-    "Entry": "2.50",
-    "Stop": "2.40",
-    "Target": "3.00",
-    "Outcome": "3.50",
-    "Rule_Adherence": "50",
-    "Entry_Quality": 45,
-    "Emotional_State": "content",
-    "Why_this_trade": "good strategy adherncr",
-    "Chart_Screenshot": "image url"
+    ["Symbol",symbol, setSymbol],
+    ["MarketBias",marketBias, setMarketBias],
+    ["Setup Strategy",setupStrategy,setSetupStrategy],
+    ["Option Type",optionType,setOptionType],
+    ["Strike",strike,setStrike],
+    ["Entry",entry,setEntry],
+    ["Stop",stop, setStop],
+    ["Target",target,setTarget],
+    ["Outcome",outcome, setOutcome],
+    ["Rule Adherence",ruleAdherence, setRuleAdherence],
+    ["Entry Quality",entryQuality, setEntryQuality],
+    ["Emotional State",emotionalState,setEmotionalState],
+    ["Why this trade",whyThisTrade,setWhyThisTrade],
+    ["Chart Screenshot",chartSceenshot,setChartScreenshot]
     ]
+    return entryObjsArr.map(entryPiece=>{
+      return <div>
+              <input
+              className=" rounded-lg rounded-md rounded-sm rounded-xl"
+              type="text"
+              name={entryPiece[0]as string}
+              placeholder={entryPiece[0]as string}
+              value={entryPiece[1] as string}
+              onChange={(event)=>(entryPiece[2]as React.Dispatch<React.SetStateAction<string>>)(event.target.value) }
+              />
+             </div>
+    })
   }
 
   //API CALL
@@ -100,6 +127,44 @@ const listReturnedJournalEntry = () => {
   
   // API post call
   // Create new journal entry
+  const handleSubmit = (event:any) => {
+    event.preventDefault();
+    fetch("https://jubilant-pancake-g55j65qp4pjcw796-8000.app.github.dev/api/tradingjournalentries/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "Application/JSON",
+    },
+    body: JSON.stringify({
+    "Date":new Date().toLocaleDateString().split("/").join("-"),
+    "Symbol": symbol,
+    "Market_Bias": marketBias,
+    "Setup_Strategy": setupStrategy,
+    "Option_Type": optionType,
+    "Strike": strike,
+    "Entry": entry,
+    "Stop": stop,
+    "Target": target,
+    "Outcome": outcome,
+    "Rule_Adherence": ruleAdherence,
+    "Entry_Quality": Number(entryQuality),
+    "Emotional_State": emotionalState,
+    "Why_this_trade": whyThisTrade,
+    "Chart_Screenshot": chartSceenshot
+    }),
+        })
+          .then((respose) => respose.json())
+          .then((newEntryResp) => {
+            console.log("post api response:",newEntryResp)
+            setSubmittedJournalEntry(newEntryResp)
+            setRefreshTrig(prev=>prev+1)
+            setshouldCreateNewEntry(prev=>!prev)
+
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+  };
+
   const submitNewTradingJournalEntry=()=>{
 
        fetch("https://jubilant-pancake-g55j65qp4pjcw796-8000.app.github.dev/api/tradingjournalentries/", {
@@ -154,26 +219,18 @@ const listReturnedJournalEntry = () => {
         {/* THIS IS THE FORM FOR CREATING NEW ENTRIES */}
         <div>
           <button onClick={()=>setshouldCreateNewEntry(prev=>!prev)}>New Entry</button>
-          {shouldCreateNewEntry && (<div> 
-            <form
+          {shouldCreateNewEntry && (<div style={{borderWidth:"2px",borderRadius:"5px", borderColor:"blue",width:"40vw",height:"30vh",overflow:"overlay",scrollbarWidth:"none"}}> <form
               onSubmit={handleSubmit}
               style={{paddingTop:"10px"}}
             >
-              <input
-              className=" ezra-chat-input rounded-lg rounded-md rounded-sm rounded-xl"
-              
-                type="text"
-                name="message"
-                placeholder="chat with Ezra"
-                value={latestMsg}
-                onChange={(event) => setLatestMsg(event.target.value)}
-              />
-              <div>
-                <button >
+                {createNewEntryForm()}
+             <div>
+              <button >
                 Submit
-              </button>
-              </div>
+              </button>  
+             </div>
             </form>
+          
           </div>)}
         </div>
         {tradingJournalEntries &&
@@ -189,8 +246,8 @@ const listReturnedJournalEntry = () => {
             <tbody>{listRows(tradingJournalEntries)}</tbody>
           </table>
 
-            <button onClick={()=>submitNewTradingJournalEntry()}>create new entry</button>
-            {listReturnedJournalEntry()}          
+            {/* <button onClick={()=>submitNewTradingJournalEntry()}>create new entry</button>
+            {listReturnedJournalEntry()}           */}
         </div>) }
         
       </div>
