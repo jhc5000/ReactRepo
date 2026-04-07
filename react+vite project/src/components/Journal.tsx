@@ -97,7 +97,7 @@ const listReturnedJournalEntry = () => {
               className=" rounded-lg rounded-md rounded-sm rounded-xl"
               type="text"
               name={entryPiece[0]as string}
-              placeholder="chat with Ezra"
+              placeholder={entryPiece[0]as string}
               value={entryPiece[1] as string}
               onChange={(event)=>(entryPiece[2]as React.Dispatch<React.SetStateAction<string>>)(event.target.value) }
               />
@@ -135,7 +135,7 @@ const listReturnedJournalEntry = () => {
       "Content-Type": "Application/JSON",
     },
     body: JSON.stringify({
-    "Date":new Date().toLocaleDateString(),
+    "Date":new Date().toLocaleDateString().split("/").join("-"),
     "Symbol": symbol,
     "Market_Bias": marketBias,
     "Setup_Strategy": setupStrategy,
@@ -219,7 +219,7 @@ const listReturnedJournalEntry = () => {
         {/* THIS IS THE FORM FOR CREATING NEW ENTRIES */}
         <div>
           <button onClick={()=>setshouldCreateNewEntry(prev=>!prev)}>New Entry</button>
-          {shouldCreateNewEntry && (<div> <form
+          {shouldCreateNewEntry && (<div style={{borderWidth:"2px",borderRadius:"5px", borderColor:"blue",width:"40vw",height:"30vh",overflow:"overlay",scrollbarWidth:"none"}}> <form
               onSubmit={handleSubmit}
               style={{paddingTop:"10px"}}
             >
