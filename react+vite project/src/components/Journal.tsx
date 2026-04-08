@@ -11,6 +11,7 @@ export default function Journal() {
   const[submittedJournalEntry,setSubmittedJournalEntry]=useState({})
   const [refreshTrig,setRefreshTrig]=useState("")
   const [shouldCreateNewEntry,setshouldCreateNewEntry]=useState(false)
+  //ABSTRACT THESE
   const[symbol,setSymbol]=useState("")
   const [marketBias,setMarketBias]=useState("")
   const [setupStrategy,setSetupStrategy]=useState("")
@@ -29,8 +30,8 @@ export default function Journal() {
   const listHeaders = (entryObj: TradingJournalEntry) => {
     let elem: JSX.Element[] = [];
     let props = Object.keys(entryObj);
-    console.dir(entryObj);
-    console.log("jeaders", props);
+    // console.dir(entryObj);
+    // console.log("jeaders", props);
     elem = props.map((entry, i) => {
       return (
         <th scope="col" className="px-6 py-4 text-center">
@@ -40,25 +41,27 @@ export default function Journal() {
     });
     return elem;
   };
-const listReturnedJournalEntry = () => {
-  let newEntry:JSX.Element[] = [];
-  if(!!(Object.keys(submittedJournalEntry)[0])){
-    let props = Object.keys(submittedJournalEntry);
-    let vals = Object.values(submittedJournalEntry) as string[];
-    console.dir(props);
-    console.log("new obj keys", props);
-    newEntry = props.map((name, i) => {
-      return (
-        <div>
-            {name} - {vals[i]}
-        </div>
-      );
-    });
-  }
+
+  //SET FOR DELETION NOW THAT I HAVE A FORM AND THE NEW JOURNAL ENTRY IS REFLECTED IN UPDATED TABLE
+// const listReturnedJournalEntry = () => {
+//   let newEntry:JSX.Element[] = [];
+//   if(!!(Object.keys(submittedJournalEntry)[0])){
+//     let props = Object.keys(submittedJournalEntry);
+//     let vals = Object.values(submittedJournalEntry) as string[];
+//     console.dir(props);
+//     console.log("new obj keys", props);
+//     newEntry = props.map((name, i) => {
+//       return (
+//         <div>
+//             {name} - {vals[i]}
+//         </div>
+//       );
+//     });
+//   }
    
     
-    return newEntry
-  };
+//     return newEntry
+//   };
 
   const listRows = (entryObjects: TradingJournalEntry[]) => {
     let rows: JSX.Element[][] = [];
@@ -74,6 +77,7 @@ const listReturnedJournalEntry = () => {
     });
   };
   // CREATE NEW ENTRY CONTAINER
+  //*research easier way to do this,LOL*
   const createNewEntryForm=()=>{
     const entryObjsArr=[
     ["Symbol",symbol, setSymbol],
