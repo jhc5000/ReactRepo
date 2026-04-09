@@ -83,3 +83,50 @@ table,  td {
   }
 
 }
+
+// Form CSS
+.form-container{
+  margin:32px 0px;
+  button{
+    margin-bottom: 14px;
+    background-color: darkgrey;
+    color: white;
+    font-weight: 800;
+  }
+}
+.form-wrapper{
+  border-color:blue;
+  width: 84vw;
+  height:55vh;
+  overflow:overlay;
+  scrollbar-width:none;
+  background-color: lightblue;
+  color: white;
+  .form-header{
+    margin-top:27px;
+    p{
+    font-size:29px;
+    }
+  }
+
+  form{
+    padding-top:10px
+  }
+  @media screen and (min-width:584px) {
+    width:500px;
+
+
+  }
+  .input-wrapper{
+    margin:25px 0px;
+    input{
+      width:77vw;
+      border-width:3px;
+      text-align:center;
+      padding:3px;
+      @media screen and (min-width:584px) {
+        width:411px  
+      }
+    }
+  }
+}
