@@ -96,7 +96,7 @@ export default function Journal() {
     ["Chart Screenshot",chartSceenshot,setChartScreenshot]
     ]
     return entryObjsArr.map(entryPiece=>{
-      return <div>
+      return <div className="input-wrapper">
               <input
               className=" rounded-lg rounded-md rounded-sm rounded-xl"
               type="text"
@@ -221,11 +221,17 @@ export default function Journal() {
         <EzraAI />
 
         {/* THIS IS THE FORM FOR CREATING NEW ENTRIES */}
-        <div>
-          <button onClick={()=>setshouldCreateNewEntry(prev=>!prev)}>New Entry</button>
-          {shouldCreateNewEntry && (<div style={{borderWidth:"2px",borderRadius:"5px", borderColor:"blue",width:"40vw",height:"30vh",overflow:"overlay",scrollbarWidth:"none"}}> <form
+        <div className="form-container">
+          <button onClick={()=>setshouldCreateNewEntry(prev=>!prev)}>{!!shouldCreateNewEntry?"Close":"Open"} New Entry Form</button>
+          {shouldCreateNewEntry && (
+          <div className="form-wrapper  rounded-lg rounded-md rounded-sm rounded-xl"> 
+            <div className="form-header">
+              <p>
+                Complete and Scroll Down to Submit Journal Entry
+              </p>
+            </div>
+            <form
               onSubmit={handleSubmit}
-              style={{paddingTop:"10px"}}
             >
                 {createNewEntryForm()}
              <div>
