@@ -76,6 +76,17 @@ export default function Journal() {
       return <tr className="border-b dark:border-neutral-600">{row}</tr>;
     });
   };
+
+  //CONSTRUCT DATE WITH RIGHT FORMAT
+  const todaysDate=()=>{
+    const date=new Date().toLocaleDateString().split("/");
+    let year=date.pop();
+    if(!!year){ 
+      year=[...year,...date]
+    }
+    year=[year,...date]
+
+  }
   // CREATE NEW ENTRY CONTAINER
   //*research easier way to do this,LOL*
   const createNewEntryForm=()=>{
@@ -98,7 +109,7 @@ export default function Journal() {
     return entryObjsArr.map(entryPiece=>{
       return <div className="input-wrapper">
               <input
-              className=" rounded-lg rounded-md rounded-sm rounded-xl"
+              className=" rounded-lg rounded-md rounded-sm rounded-xl bold"
               type="text"
               name={entryPiece[0]as string}
               placeholder={entryPiece[0]as string}
@@ -139,7 +150,7 @@ export default function Journal() {
       "Content-Type": "Application/JSON",
     },
     body: JSON.stringify({
-    "Date":new Date().toLocaleDateString().split("/").join("-"),
+    "Date":todaysDate(),
     "Symbol": symbol,
     "Market_Bias": marketBias,
     "Setup_Strategy": setupStrategy,
