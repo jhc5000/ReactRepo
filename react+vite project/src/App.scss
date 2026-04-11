@@ -124,9 +124,22 @@ table,  td {
       border-width:3px;
       text-align:center;
       padding:3px;
+      font-weight:bold;
       @media screen and (min-width:584px) {
         width:411px  
       }
     }
+
+    //AUTOFILL FOR JOURNAL ENTRY
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover, 
+    input:-webkit-autofill:focus, 
+    input:-webkit-autofill:active {
+      -webkit-text-fill-color: #ffffff; /* Change text color here */
+      border:3px solid white;
+      -webkit-box-shadow: 0 0 0 1000px  lightblue inset; /* Use a large inset shadow for background */
+      transition: background-color 5000s ease-in-out 0s; /* Prevents the background from reverting */
+    }
   }
 }
+ 
