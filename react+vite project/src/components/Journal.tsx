@@ -79,16 +79,20 @@ export default function Journal() {
 
   //CONSTRUCT DATE WITH RIGHT FORMAT
   const todaysDate=()=>{
-    const date=new Date().toLocaleDateString().split("/");
+    let date=new Date().toLocaleDateString().split("/");
     let year=date.pop();
+    let reorgDate="";
     if(!!year){ 
-      year=[...year,...date]
+      date=[year,...date]
+      reorgDate=date.join("-")
     }
-    year=[year,...date]
-
+    console.log({reorgDate})
+    // alert({reorgDate})
+    return reorgDate
   }
   // CREATE NEW ENTRY CONTAINER
   //*research easier way to do this,LOL*
+  // FIX ADHERENCE INPUT
   const createNewEntryForm=()=>{
     const entryObjsArr=[
     ["Symbol",symbol, setSymbol],
@@ -118,6 +122,22 @@ export default function Journal() {
               />
              </div>
     })
+  }
+  const clearNewEntryForm=()=>{
+    setSymbol(""),
+    setMarketBias(""),
+    setSetupStrategy(""),
+    setOptionType(""),
+    setStrike(""),
+    setEntry(""),
+    setStop(""),
+    setTarget(""),
+    setOutcome(""),
+    setRuleAdherence(""),
+    setEntryQuality(""),
+    setEmotionalState(""),
+    setWhyThisTrade(""),
+    setChartScreenshot("")
   }
 
   //API CALL
@@ -173,6 +193,10 @@ export default function Journal() {
             setSubmittedJournalEntry(newEntryResp)
             setRefreshTrig(prev=>prev+1)
             setshouldCreateNewEntry(prev=>!prev)
+            if(!!newEntryResp){
+              clearNewEntryForm()
+            }
+            // alert("New journal entry submitted")
 
           })
           .catch((error) => {
