@@ -256,13 +256,14 @@ export default function Journal() {
         <EzraAI />
 
         {/* THIS IS THE FORM FOR CREATING NEW ENTRIES */}
+      {/* FORM VALIDATIONS! */}
         <div className="form-container">
           <button onClick={()=>setshouldCreateNewEntry(prev=>!prev)}>{!!shouldCreateNewEntry?"Close":"Open"} New Entry Form</button>
           {shouldCreateNewEntry && (
           <div className="form-wrapper  rounded-lg rounded-md rounded-sm rounded-xl"> 
             <div className="form-header">
               <p>
-                Complete and Scroll Down to Submit Journal Entry
+                Scroll Down to Submit Completed Journal Entry Form
               </p>
             </div>
             <form
