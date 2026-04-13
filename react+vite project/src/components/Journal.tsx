@@ -1,5 +1,7 @@
 import EzraAI from "./EzraAI";
 import React, { useState, useEffect } from "react";
+import type {SubmitHandler}from "react-hook-form";
+import { useForm} from "react-hook-form";
 import type {
   TradingJournalApiService,
   TradingJournalEntry,
