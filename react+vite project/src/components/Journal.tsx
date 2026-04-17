@@ -13,6 +13,7 @@ export default function Journal() {
   const[submittedJournalEntry,setSubmittedJournalEntry]=useState({})
   const [refreshTrig,setRefreshTrig]=useState("")
   const [shouldCreateNewEntry,setshouldCreateNewEntry]=useState(false)
+  const [error, setError] = useState('');
   //ABSTRACT THESE
   const[symbol,setSymbol]=useState("")
   const [marketBias,setMarketBias]=useState("")
@@ -43,27 +44,6 @@ export default function Journal() {
     });
     return elem;
   };
-
-  //SET FOR DELETION NOW THAT I HAVE A FORM AND THE NEW JOURNAL ENTRY IS REFLECTED IN UPDATED TABLE
-// const listReturnedJournalEntry = () => {
-//   let newEntry:JSX.Element[] = [];
-//   if(!!(Object.keys(submittedJournalEntry)[0])){
-//     let props = Object.keys(submittedJournalEntry);
-//     let vals = Object.values(submittedJournalEntry) as string[];
-//     console.dir(props);
-//     console.log("new obj keys", props);
-//     newEntry = props.map((name, i) => {
-//       return (
-//         <div>
-//             {name} - {vals[i]}
-//         </div>
-//       );
-//     });
-//   }
-   
-    
-//     return newEntry
-//   };
 
   const listRows = (entryObjects: TradingJournalEntry[]) => {
     let rows: JSX.Element[][] = [];
@@ -125,6 +105,19 @@ export default function Journal() {
              </div>
     })
   }
+
+  // TESTESTESTEST!!!!
+  // FORM VALIDATION
+  const handleInputChange = (eventValue:any,setInputValue: React.Dispatch<React.SetStateAction<string>>) => {
+    setInputValue(eventValue);
+
+    // Validate if the input is not empty
+    if (!eventValue.trim()) {
+      setError('This field is required.');
+    } else {
+      setError('');
+    }
+  };
   const clearNewEntryForm=()=>{
     setSymbol(""),
     setMarketBias(""),
@@ -206,41 +199,6 @@ export default function Journal() {
           });
   };
 
-  const submitNewTradingJournalEntry=()=>{
-
-       fetch("https://jubilant-pancake-g55j65qp4pjcw796-8000.app.github.dev/api/tradingjournalentries/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "Application/JSON",
-      },
-      body: JSON.stringify({
-    "Date": "2026-03-08",
-    "Symbol": "NTFLX",
-    "Market_Bias": "Looking good",
-    "Setup_Strategy": "breakout 15 minute strategy",
-    "Option_Type": "Test",
-    "Strike": "600",
-    "Entry": "2.50",
-    "Stop": "2.40",
-    "Target": "3.00",
-    "Outcome": "3.50",
-    "Rule_Adherence": "50",
-    "Entry_Quality": 45,
-    "Emotional_State": "content",
-    "Why_this_trade": "good strategy adherncr",
-    "Chart_Screenshot": "image url"
-}),
-    })
-      .then((respose) => respose.json())
-      .then((newEntryResp) => {
-        console.log("post api response:",newEntryResp)
-        setSubmittedJournalEntry(newEntryResp)
-        setRefreshTrig(prev=>prev+1)
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    }
 
   return (
    
@@ -273,7 +231,7 @@ export default function Journal() {
             >
                 {createNewEntryForm()}
              <div>
-              <button >
+              <button style={{backgroundColor: error?"red":"default"}} disabled={error?true:false} >
                 Submit
               </button>  
              </div>
