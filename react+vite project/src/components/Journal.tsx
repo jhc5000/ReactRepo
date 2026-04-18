@@ -14,6 +14,7 @@ export default function Journal() {
   const [refreshTrig,setRefreshTrig]=useState("")
   const [shouldCreateNewEntry,setshouldCreateNewEntry]=useState(false)
   const [error, setError] = useState('');
+  const [inputFieldsArr,setInputFieldsArr]=useState<any[]>([])
   //ABSTRACT THESE
   const[symbol,setSymbol]=useState("")
   const [marketBias,setMarketBias]=useState("")
@@ -92,7 +93,9 @@ export default function Journal() {
     ["Why this trade",whyThisTrade,setWhyThisTrade],
     ["Chart Screenshot",chartSceenshot,setChartScreenshot]
     ]
+    // FIX BUG!
     return entryObjsArr.map(entryPiece=>{
+      setInputFieldsArr(prev=>[...prev,(entryPiece[1] as string)])
       return <div className="input-wrapper">
               <input
               className=" rounded-lg rounded-md rounded-sm rounded-xl bold"
@@ -100,7 +103,10 @@ export default function Journal() {
               name={entryPiece[0]as string}
               placeholder={entryPiece[0]as string}
               value={entryPiece[1] as string}
-              onChange={(event)=>(entryPiece[2]as React.Dispatch<React.SetStateAction<string>>)(event.target.value) }
+              onChange={(event)=>(
+                handleInputChange(event.target.value,entryPiece[2]as React.Dispatch<React.SetStateAction<string>>))
+                // entryPiece[2]as React.Dispatch<React.SetStateAction<string>>)(event.target.value) 
+              }
               />
              </div>
     })
@@ -158,45 +164,52 @@ export default function Journal() {
   // API post call
   // Create new journal entry
   const handleSubmit = (event:any) => {
-    event.preventDefault();
-    fetch("https://jubilant-pancake-g55j65qp4pjcw796-8000.app.github.dev/api/tradingjournalentries/", {
-    method: "POST",
-    headers: {
-      "Content-Type": "Application/JSON",
-    },
-    body: JSON.stringify({
-    "Date":todaysDate(),
-    "Symbol": symbol,
-    "Market_Bias": marketBias,
-    "Setup_Strategy": setupStrategy,
-    "Option_Type": optionType,
-    "Strike": strike,
-    "Entry": entry,
-    "Stop": stop,
-    "Target": target,
-    "Outcome": outcome,
-    "Rule_Adherence": ruleAdherence,
-    "Entry_Quality": Number(entryQuality),
-    "Emotional_State": emotionalState,
-    "Why_this_trade": whyThisTrade,
-    "Chart_Screenshot": chartSceenshot
-    }),
-        })
-          .then((respose) => respose.json())
-          .then((newEntryResp) => {
-            console.log("post api response:",newEntryResp)
-            setSubmittedJournalEntry(newEntryResp)
-            setRefreshTrig(prev=>prev+1)
-            setshouldCreateNewEntry(prev=>!prev)
-            if(!!newEntryResp){
-              clearNewEntryForm()
-            }
-            // alert("New journal entry submitted")
-
+     event.preventDefault();
+    console.log({inputFieldsArr})
+    // if(inputFieldsArr.every(input=>!!input)){
+     
+      fetch("https://jubilant-pancake-g55j65qp4pjcw796-8000.app.github.dev/api/tradingjournalentries/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "Application/JSON",
+      },
+      body: JSON.stringify({
+      "Date":todaysDate(),
+      "Symbol": symbol,
+      "Market_Bias": marketBias,
+      "Setup_Strategy": setupStrategy,
+      "Option_Type": optionType,
+      "Strike": strike,
+      "Entry": entry,
+      "Stop": stop,
+      "Target": target,
+      "Outcome": outcome,
+      "Rule_Adherence": ruleAdherence,
+      "Entry_Quality": Number(entryQuality),
+      "Emotional_State": emotionalState,
+      "Why_this_trade": whyThisTrade,
+      "Chart_Screenshot": chartSceenshot
+      }),
           })
-          .catch((error) => {
-            console.log(error);
-          });
+            .then((respose) => respose.json())
+            .then((newEntryResp) => {
+              console.log("post api response:",newEntryResp)
+              setSubmittedJournalEntry(newEntryResp)
+              setRefreshTrig(prev=>prev+1)
+              setshouldCreateNewEntry(prev=>!prev)
+              if(!!newEntryResp){
+                clearNewEntryForm()
+              }
+              // alert("New journal entry submitted")
+
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+    // }else{
+    //   setError("Please Complete the form before submitting")
+    //   alert(error)
+    // }
   };
 
 
