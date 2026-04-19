@@ -93,9 +93,10 @@ export default function Journal() {
     ["Why this trade",whyThisTrade,setWhyThisTrade],
     ["Chart Screenshot",chartSceenshot,setChartScreenshot]
     ]
-    // FIX BUG!
+    
     return entryObjsArr.map(entryPiece=>{
-      setInputFieldsArr(prev=>[...prev,(entryPiece[1] as string)])
+      //BUG IS HERE!!!
+      // setInputFieldsArr(prev=>[...prev,(entryPiece[1] as string)])
       return <div className="input-wrapper">
               <input
               className=" rounded-lg rounded-md rounded-sm rounded-xl bold"
@@ -104,8 +105,8 @@ export default function Journal() {
               placeholder={entryPiece[0]as string}
               value={entryPiece[1] as string}
               onChange={(event)=>(
-                handleInputChange(event.target.value,entryPiece[2]as React.Dispatch<React.SetStateAction<string>>))
-                // entryPiece[2]as React.Dispatch<React.SetStateAction<string>>)(event.target.value) 
+                // handleInputChange(event.target.value,entryPiece[2]as React.Dispatch<React.SetStateAction<string>>))
+                entryPiece[2]as React.Dispatch<React.SetStateAction<string>>)(event.target.value) 
               }
               />
              </div>
