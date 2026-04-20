@@ -96,7 +96,10 @@ export default function Journal() {
     
     return entryObjsArr.map(entryPiece=>{
       //BUG IS HERE!!!
-      // setInputFieldsArr(prev=>[...prev,(entryPiece[1] as string)])
+      if(!!entryPiece && !!entryPiece[1]){
+        setInputFieldsArr([...inputFieldsArr,(entryPiece[1] as string)])
+      }
+      
       return <div className="input-wrapper">
               <input
               className=" rounded-lg rounded-md rounded-sm rounded-xl bold"
