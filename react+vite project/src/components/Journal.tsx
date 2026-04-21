@@ -96,8 +96,12 @@ export default function Journal() {
     
     return entryObjsArr.map(entryPiece=>{
       //BUG IS HERE!!!
+      let piece=entryPiece[1] ;
+      
+      console.log({piece,inputFieldsArr})
       if(!!entryPiece && !!entryPiece[1]){
-        setInputFieldsArr([...inputFieldsArr,(entryPiece[1] as string)])
+        setInputFieldsArr([...inputFieldsArr])
+        // setInputFieldsArr([...inputFieldsArr,(entryPiece[1] as string)])
       }
       
       return <div className="input-wrapper">
