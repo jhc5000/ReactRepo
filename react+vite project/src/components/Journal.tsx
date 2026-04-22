@@ -97,10 +97,11 @@ export default function Journal() {
     return entryObjsArr.map(entryPiece=>{
       //BUG IS HERE!!!
       let piece=entryPiece[1] ;
-      
-      console.log({piece,inputFieldsArr})
+      let pieceArr=[...inputFieldsArr]
+      // console.log({piece,inputFieldsArr})
       if(!!entryPiece && !!entryPiece[1]){
-        setInputFieldsArr([...inputFieldsArr])
+       console.log("TWOWTWO",{inputFieldsArr})
+        setInputFieldsArr([1,...pieceArr])
         // setInputFieldsArr([...inputFieldsArr,(entryPiece[1] as string)])
       }
       
