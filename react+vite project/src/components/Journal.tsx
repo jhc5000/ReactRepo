@@ -14,7 +14,8 @@ export default function Journal() {
   const [refreshTrig,setRefreshTrig]=useState("")
   const [shouldCreateNewEntry,setshouldCreateNewEntry]=useState(false)
   const [error, setError] = useState('');
-  const [inputFieldsArr,setInputFieldsArr]=useState<any[]>([])
+  // const [inputFieldsArr,setInputFieldsArr]=useState<any[]>([])
+  let inputFieldsArr={}
   //ABSTRACT THESE
   const[symbol,setSymbol]=useState("")
   const [marketBias,setMarketBias]=useState("")
@@ -97,11 +98,14 @@ export default function Journal() {
     return entryObjsArr.map(entryPiece=>{
       //BUG IS HERE!!!
       let piece=entryPiece[1] ;
-      let pieceArr=[...inputFieldsArr]
-      // console.log({piece,inputFieldsArr})
-      if(!!entryPiece && !!entryPiece[1]){
+      // let pieceArr=[...inputFieldsArr]
+      // // console.log({piece,inputFieldsArr})
+      if(!!entryPiece && !!entryPiece[0]){
        console.log("TWOWTWO",{inputFieldsArr})
-        setInputFieldsArr([1,...pieceArr])
+
+       //TURN THIS INTO AN OBJECT WITH THE STRING AS THE PROP, AND then update thevalue when user entwer input data
+       inputFieldsArr={...inputFieldsArr,[entryPiece[0] as string]:entryPiece[1] as string}
+
         // setInputFieldsArr([...inputFieldsArr,(entryPiece[1] as string)])
       }
       
@@ -113,8 +117,8 @@ export default function Journal() {
               placeholder={entryPiece[0]as string}
               value={entryPiece[1] as string}
               onChange={(event)=>(
-                // handleInputChange(event.target.value,entryPiece[2]as React.Dispatch<React.SetStateAction<string>>))
-                entryPiece[2]as React.Dispatch<React.SetStateAction<string>>)(event.target.value) 
+                handleInputChange(event.target.value,entryPiece[2]as React.Dispatch<React.SetStateAction<string>>))
+                // entryPiece[2]as React.Dispatch<React.SetStateAction<string>>)(event.target.value) 
               }
               />
              </div>
@@ -125,7 +129,7 @@ export default function Journal() {
   // FORM VALIDATION
   const handleInputChange = (eventValue:any,setInputValue: React.Dispatch<React.SetStateAction<string>>) => {
     setInputValue(eventValue);
-
+    console.log({eventValue})
     // Validate if the input is not empty
     if (!eventValue.trim()) {
       setError('This field is required.');
@@ -175,7 +179,8 @@ export default function Journal() {
   const handleSubmit = (event:any) => {
      event.preventDefault();
     console.log({inputFieldsArr})
-    // if(inputFieldsArr.every(input=>!!input)){
+    let inputVals=Object.values(inputFieldsArr);
+    if(inputVals.every(input=>!!(input as string).trim())){
      
       fetch("https://jubilant-pancake-g55j65qp4pjcw796-8000.app.github.dev/api/tradingjournalentries/", {
       method: "POST",
@@ -215,10 +220,10 @@ export default function Journal() {
             .catch((error) => {
               console.log(error);
             });
-    // }else{
-    //   setError("Please Complete the form before submitting")
-    //   alert(error)
-    // }
+    }else{
+      setError("Please Complete the form before submitting")
+      alert(error)
+    }
   };
 
 
